@@ -1,6 +1,7 @@
 const express = require("express");
 var cors = require('cors')
 const te = require("tradingeconomics");
+var bodyParser = require('body-parser')
 const app = express();
 
 
@@ -13,7 +14,10 @@ const cpuNumber = os.cpus().length;
 app.set("view engine","ejs");
 app.use("/script",express.static('script'))
 app.use("/style",express.static('style'))
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 app.use(cors())
+
 
 app.get("/country_news_report",(req,res)=>{
     te.getNews(limit = '4', start = '1').then((data) => {
