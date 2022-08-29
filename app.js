@@ -20,10 +20,11 @@ app.use(cors())
 
 
 app.get("/country_news_report",(req,res)=>{
-    te.getNews(limit = '4', start = '1').then((data) => {
-      res.writeHead(200,{"Content-type" : "application/json"});
-      res.end(JSON.stringify(data));
-      return data;
+    te.getNews(country = 'china', limit = '4', start = '1').then((data) => {
+        res.writeHead(200,{"Content-type" : "application/json"});
+        res.end(JSON.stringify(data));
+        console.log(data);      
+        return data;
     })
     .catch((err) => console.log(err));
 });
@@ -43,7 +44,7 @@ if(cluster.isMaster){
     })
 
 }else{
-    app.listen(5500,()=>{
+    app.listen(6600,()=>{
         console.log(`cpu ${process.pid}`);
     });
 }
